@@ -9,7 +9,7 @@ struct Bool_vector {
     int value = 0; int size = 0;
 };
 std::ostream& operator << (std::ostream& os, const Bool_vector& a) {
-    for (int i = a.size; i >= 0; --i) {
+    for (int i = a.size - 1; i >= 0; --i) {
         if (a.value & (1 << i)) { os << '1'; }
         else { os << '0'; }
     }
@@ -25,7 +25,7 @@ void get_code(std::vector<Bool_vector>& code, int local_len) {
         return;
     }
     int t = code[local_len - 1].value + code[local_len - 2].value, j = local_len - 2, s;
-    while (j > 0 && t > code[j - 1].value) {
+    while (j > 0 && t >= code[j - 1].value) { // >= для красивого результата)
         code[j] = code[j - 1];
         --j;
     }
